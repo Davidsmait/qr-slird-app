@@ -1,0 +1,7 @@
+{
+  "name": "qr-slird-ui-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
