@@ -21,7 +21,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content class="ion-padding ">
+  <div>
+    <h1 class="client-name">Hi Carlos Hernandez!</h1>
+    <h3 class="greeting-message">God Morning</h3>
+  </div>
+  <div class="ion-text-center">
+    <h3 class="informative-text">Your business card</h3>
+  </div>
 
-
+  <div *ngFor="let src of cardSource">
+    <ion-img  [src]="src" class="card"></ion-img>
+  </div>
 </ion-content>

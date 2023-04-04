@@ -1,8 +1,11 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-
+body, :root, *{
+  font-family: var(--custom-font);
+}
 /** Ionic CSS Variables **/
 :root {
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -76,11 +79,17 @@
   --ion-color-light-tint: #f5f6f9;
 
   /** custom variables **/
+  --custom-font: 'Roboto', sans-serif;
+
   --color-toolbar: #1F223E;
   --color-gradient-primary: linear-gradient(90deg, #FFFFFF 0%, #00A8E7 100%);
   --color-gradient-secondary: linear-gradient(90deg, #0022E7 0%, #00A8E7 100%);
 
   /** custom classes **/
+  .font--text{
+    font-family: var(--custom-font);
+  }
+
   .primary--color-gradient {
     background: var(--color-gradient-primary);
     -webkit-background-clip: text;
@@ -94,6 +103,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+
 }
 
 @media (prefers-color-scheme: dark) {
