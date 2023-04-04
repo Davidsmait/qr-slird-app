@@ -74,6 +74,26 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** custom variables **/
+  --color-toolbar: #1F223E;
+  --color-gradient-primary: linear-gradient(90deg, #FFFFFF 0%, #00A8E7 100%);
+  --color-gradient-secondary: linear-gradient(90deg, #0022E7 0%, #00A8E7 100%);
+
+  /** custom classes **/
+  .primary--color-gradient {
+    background: var(--color-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .secondary--color-gradient {
+    background: var(--color-gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
