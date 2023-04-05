@@ -30,7 +30,16 @@
     <h3 class="informative-text">Your business card</h3>
   </div>
 
-  <div *ngFor="let src of cardSource">
-    <ion-img  [src]="src" class="card"></ion-img>
-  </div>
+  <ng-container *ngIf="hasCardOwned">
+    <div *ngFor="let src of cardSource">
+      <ion-img  [src]="src" class="card"></ion-img>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!hasCardOwned">
+    <div class="image-container" (click)="onClickCard()">
+      <ion-img class="image-overlay"  src="../../assets/images/card-demo@3x.png"></ion-img>
+      <div class="text-overlay">You don't have any presentation card, create one here!</div>
+    </div>
+  </ng-container>
 </ion-content>
