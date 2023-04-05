@@ -1,0 +1,25 @@
+<ion-content class="ion-text-center  ">
+    <img
+      alt="logo-app"
+      src="../../assets/icon/app-logo-login.png"
+      class="logo-app-img">
+
+  <div class="app-name">slird</div>
+  <div class="greeting">Welcome!</div>
+
+  <div class="login-buttons">
+    <ion-button color="light" *ngIf="isIos">
+      <ion-icon
+        class="icon icon--margin-right ion-text-lowercase"
+        name="logo-apple"></ion-icon>
+      Sign up with Apple
+    </ion-button>
+
+    <ion-button color="dark" >
+      <ion-img
+        class="icon icon--margin-right"
+        src="../../assets/icon/google-icon.png"></ion-img>
+      Sign up with Google
+    </ion-button>
+  </div>
+</ion-content>
