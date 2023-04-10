@@ -9,9 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import {TabsComponent} from "./components/tabs/tabs.component";
 
 @NgModule({
-  declarations: [AppComponent, TabsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, TabsComponent],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+    providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+    bootstrap: [AppComponent],
+    exports: [
+        TabsComponent
+    ]
 })
 export class AppModule {}

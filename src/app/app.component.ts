@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,22 +6,8 @@ import {NavigationEnd, Router} from "@angular/router";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  private currentRoute: string = "";
-  isOnLoginPage = true;
 
-  constructor(private router: Router) {
+  constructor() {}
 
-  }
-
-  ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-        console.log(this.currentRoute); // Muestra la ruta actual en la consola
-        this.isOnLoginPage = this.currentRoute === "/" || this.currentRoute === "/login";
-      }
-    });
-
-
-  }
+  ngOnInit() {}
 }
