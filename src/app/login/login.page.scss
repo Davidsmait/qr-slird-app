@@ -8,12 +8,18 @@
 .app-name{
   font-size: 50px;
   font-weight: 700;
+  line-height: 59px;
 }
 
 .greeting{
   font-size: 30px;
   font-weight: 700;
   margin-top: 165px;
+  line-height: 35px;
+}
+
+.app-name, .greeting {
+  color: #1F223E;
 }
 
 .login-buttons{
