@@ -25,9 +25,21 @@ ion-toolbar{
   margin: 30px 0 35px;
 }
 
+
+
+.card-container:nth-of-type(2n){
+  filter:
+    brightness(100%)
+    saturate(100%)
+    invert(100%)
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
 .card{
   margin: 25px 0 26px;
+  border-radius: 15px;
 }
+
 
 .image-container{
   position: relative;

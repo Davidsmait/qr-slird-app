@@ -31,7 +31,7 @@
   </div>
 
   <ng-container *ngIf="hasCardOwned">
-    <div *ngFor="let src of cardSource">
+    <div *ngFor="let src of cardSource" class="card-container">
       <ion-img  [src]="src" class="card"></ion-img>
     </div>
   </ng-container>
