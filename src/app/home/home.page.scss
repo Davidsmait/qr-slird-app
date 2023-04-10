@@ -1,6 +1,10 @@
 // custom variables ion variables.css
 
 ion-toolbar{
+  --padding-top: 20px;
+  --padding-bottom: 16px;
+  --padding-end: 15px;
+  --padding-start: 15px;
   --background: var(--color-toolbar);
 }
 
