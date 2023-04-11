@@ -21,8 +21,18 @@ const routes: Routes = [
           },
           {
             path: 'new-card',
-            loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
-          }
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
+              },
+              {
+                path: 'card-templates',
+                loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
+              }
+            ]
+          },
+
         ]
       },
     ]
@@ -39,7 +49,12 @@ const routes: Routes = [
   {
     path: 'new-card',
     loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
+  },
+  {
+    path: 'card-templates',
+    loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
   }
+
 
 
 ];
