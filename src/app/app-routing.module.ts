@@ -4,7 +4,7 @@ import {TabsComponent} from "./components/tabs/tabs.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: TabsComponent,
     children:[
       {
@@ -14,15 +14,24 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+          },
+        ]
       },
     ]
   },
-
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'tabs'
+  }
 
 ];
 
