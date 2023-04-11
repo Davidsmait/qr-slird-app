@@ -19,6 +19,10 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
           },
+          {
+            path: 'new-card',
+            loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
+          }
         ]
       },
     ]
@@ -31,7 +35,12 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'tabs'
+  },
+  {
+    path: 'new-card',
+    loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
   }
+
 
 ];
 

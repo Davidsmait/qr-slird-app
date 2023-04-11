@@ -1,5 +1,5 @@
 <ion-header >
-  <ion-toolbar>
+  <ion-toolbar class="toolbar">
     <ion-img
       class="ion-margin-start"
       slot="start"
@@ -7,13 +7,12 @@
       alt="app logo"
       style="width: 21px; height: 31px"></ion-img>
     <ion-title
-      class="ion-text-center primary--color-gradient"
-      style="font-size: 18px">
+      class="toolbar-title ion-text-center primary--color-gradient">
       Home
     </ion-title>
     <ion-buttons slot="end" >
-      <ion-button>
-        <div style="font-size: 16px;" class="secondary--color-gradient">
+      <ion-button [routerLink]="['new-card']">
+        <div class="toolbar-button-text secondary--color-gradient">
           New
         </div>
       </ion-button>
@@ -37,7 +36,7 @@
   </ng-container>
 
   <ng-container *ngIf="!hasCardOwned">
-    <div class="image-container" (click)="onClickCard()">
+    <div class="image-container" (click)="onClickCard()" [routerLink]="['new-card']">
       <ion-img class="image-overlay"  src="../../assets/images/card-demo@3x.png"></ion-img>
       <div class="text-overlay">You don't have any presentation card, create one here!</div>
     </div>
