@@ -22,7 +22,7 @@
 
 <ion-content class="ion-padding ">
   <div>
-    <h1 class="client-name">Hi Carlos Hernandez!</h1>
+    <h1 class="user-name">Hi Carlos Hernandez!</h1>
     <h3 class="greeting-message">God Morning</h3>
   </div>
   <div class="ion-text-center">
@@ -37,7 +37,7 @@
 
   <ng-container *ngIf="!hasCardOwned">
     <div class="image-container" (click)="onClickCard()" [routerLink]="['new-card']">
-      <ion-img class="image-overlay"  src="../../assets/images/card-demo@3x.png"></ion-img>
+      <ion-img class="card--filter-opacity"  src="../../assets/images/card-demo@3x.png"></ion-img>
       <div class="text-overlay">You don't have any presentation card, create one here!</div>
     </div>
   </ng-container>
