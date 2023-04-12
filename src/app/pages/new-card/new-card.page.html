@@ -23,11 +23,10 @@
 
 <ion-content>
   <div class="grid-container">
-    <ion-grid >
+    <ion-grid class="">
       <ion-row
         class="
         ion-align-items-center
-        ion-justify-content-between
         ion-padding-bottom">
         <ion-col >
           <div class="content-title">
@@ -36,16 +35,26 @@
         </ion-col>
         <ion-col>
           <ion-button
-            class="template-button" [routerLink]="['card-templates']">
+            class="template-button ion-float-end"
+            [routerLink]="['card-templates']">
             Select a template
           </ion-button>
         </ion-col>
       </ion-row>
+
       <ion-row>
-        <img
-          src="../../assets/images/card-demo@3x.png"
-          class="card--filter-opacity">
+        <div class="card " >
+          <div class="card-inner ">
+            <div class="card-front">
+              <img src="../../assets/images/card-demo@3x.png" alt="Imagen Frontal">
+            </div>
+            <div class="card-back ">
+              <img style="border-radius: 15px" src="../../assets/images/card-back-demo.png" alt="Imagen Trasera">
+            </div>
+          </div>
+        </div>
       </ion-row>
+
     </ion-grid>
   </div>
 

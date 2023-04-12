@@ -1,3 +1,6 @@
+:root, * {
+}
+
 .grid-container{
   padding: 16px;
 }
@@ -11,6 +14,7 @@ ion-grid{
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
+
 }
 
 .content-title{
@@ -18,4 +22,41 @@ ion-grid{
   font-weight: 600;
 }
 
+.card {
+  perspective: 1000px;
+  width: 100%;
+}
 
+.card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card:hover .card-inner,
+.card.active .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-inner:hover{
+  transform: rotateY(180deg);
+}
+
+.card-front{
+  z-index: 2;
+}
+.card-back {
+  z-index: 1;
+  transform: rotateY(180deg);
+}

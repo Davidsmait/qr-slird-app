@@ -8,7 +8,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class NewCardPage implements OnInit {
   id: number = 1
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
