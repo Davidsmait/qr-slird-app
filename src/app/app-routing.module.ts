@@ -26,37 +26,31 @@ const routes: Routes = [
                 path: '',
                 loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
               },
+
               {
                 path: 'card-templates',
                 loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
               }
             ]
           },
-
+          {
+            path: 'new-card/:id',
+            redirectTo: 'new-card'
+          },
         ]
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
       },
     ]
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },
+
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'tabs'
   },
-  {
-    path: 'new-card',
-    loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
-  },
-  {
-    path: 'card-templates',
-    loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
-  }
-
-
-
 ];
 
 @NgModule({

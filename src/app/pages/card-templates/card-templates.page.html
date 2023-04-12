@@ -14,6 +14,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <div *ngFor="let card of cards" class="ion-margin">
+    <ion-img
+      [src]="card.src"
+      (click)="onChooseTemplate(card.id)"
+      class="ion-padding-bottom"></ion-img>
+  </div>
 </ion-content>
