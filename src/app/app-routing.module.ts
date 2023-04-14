@@ -7,11 +7,7 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsComponent,
     children:[
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'home'
-      },
+
       {
         path: 'home',
         children: [
@@ -40,16 +36,20 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'login',
-        loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
       },
     ]
   },
-
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'tabs'
+    redirectTo: 'login'
   },
 ];
 
