@@ -3,7 +3,7 @@
 body, :root, *{
   font-family: var(--custom-font);
 }
-/** Qrsof CSS variables **/
+/** CSS variables **/
 
 :root{
   /** custom variables **/
@@ -16,8 +16,8 @@ body, :root, *{
   /** custom classes **/
 
   .toolbar{
-    --padding-top: 20px;
-    --padding-bottom: 16px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
     --padding-end: 15px;
     --padding-start: 15px;
     --background: var(--color-toolbar);
