@@ -85,9 +85,11 @@
           <h1 class="title-more-fields">Add more fields</h1>
         </ion-col>
       </ion-row>
-      <ion-row >
-        <ion-col size="10">
+
+      <ion-row *ngIf="isOnSelector">
+        <ion-col size="12" >
           <ion-item
+            (click)="presentActionSheet()"
             lines="none"
             [button]="true"
             detail="true"
@@ -97,8 +99,19 @@
             </ion-label>
           </ion-item>
         </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!isOnSelector">
+
+        <ion-col size="10" >
+          <ion-item lines="none">
+            <ion-input placeholder="Enter name"></ion-input>
+            <ion-icon [name]="selectedIcon"></ion-icon>
+          </ion-item>
+        </ion-col>
         <ion-col size="2">
           <ion-button
+            (click)="onAddField()"
             class="button-col template-button ion-float-right">
             Add
           </ion-button>
