@@ -60,9 +60,55 @@
         </div>
       </ion-row>
 
+      <ion-row class="logo-selector">
+        <ion-col size="9" >
+          <ion-item
+            lines="none"
+            [button]="true"
+            detail="true"
+            detail-icon="chevron-down-outline">
+            <ion-label>
+              <p class="selector-label">Select a logo</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button
+            class="button-col template-button ion-float-right">
+            Upload
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="more-files-selector">
+        <ion-col>
+          <h1 class="title-more-fields">Add more fields</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col size="10">
+          <ion-item
+            lines="none"
+            [button]="true"
+            detail="true"
+            detail-icon="chevron-down-outline">
+            <ion-label>
+              <p>Select menu</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button
+            class="button-col template-button ion-float-right">
+            Add
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
     </ion-grid>
   </div>
 
 </ion-content>
+
 
 

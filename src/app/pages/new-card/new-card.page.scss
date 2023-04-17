@@ -1,12 +1,16 @@
 :root, * {
 }
 
+ion-col {
+  margin: 0;
+  padding: 0;
+}
+
+
 .grid-container{
   padding: 16px;
 }
 
-ion-grid{
-}
 
 .template-button{
   --background: var(--color-gradient-secondary);
@@ -25,23 +29,34 @@ ion-grid{
 .card {
   perspective: 1000px;
   width: 100%;
-}
+  height: 210px;
 
-.card-inner {
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.5s ease;
-  width: 100%;
-}
+  .card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
 
-.card-front,
-.card-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+    .card-front,
+    .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    .card-front{
+      z-index: 2;
+    }
+    .card-back {
+      z-index: 1;
+      transform: rotateY(180deg);
+    }
+
+  }
 }
 
 .card:hover .card-inner,
@@ -53,10 +68,35 @@ ion-grid{
   transform: rotateY(180deg);
 }
 
-.card-front{
-  z-index: 2;
+ion-item{
+  --border-color:#CED4DA;
+  --border-width: 1px;
+  --border-radius: 4px;
+  --min-height:36px;
 }
-.card-back {
-  z-index: 1;
-  transform: rotateY(180deg);
+
+.button-col{
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.logo-selector{
+  margin-top: 7vh;
+}
+
+.title-more-fields{
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.more-files-selector{
+  margin-top: 3vh;
 }
