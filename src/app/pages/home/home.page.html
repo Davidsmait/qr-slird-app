@@ -26,7 +26,7 @@
     <h3 class="greeting-message">God Morning</h3>
   </div>
   <div class="ion-text-center">
-    <h3 class="informative-text">Your business card</h3>
+    <h3 class="informative-text" (click)="ownCardStateChange()">Your business card</h3>
   </div>
 
   <ng-container *ngIf="hasCardOwned">
@@ -36,9 +36,13 @@
   </ng-container>
 
   <ng-container *ngIf="!hasCardOwned">
-    <div class="image-container" (click)="onClickCard()" [routerLink]="['new-card']">
+    <div
+      class="image-container"
+      (click)="ownCardStateChange()"
+      [routerLink]="['new-card']">
       <ion-img class="card--filter-opacity"  src="../../assets/images/card-demo@3x.png"></ion-img>
       <div class="text-overlay">You don't have any presentation card, create one here!</div>
     </div>
   </ng-container>
+
 </ion-content>

@@ -11,7 +11,7 @@ export class HomePage {
   cardSource = ["../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png"]
   constructor() {}
 
-  onClickCard(){
-    console.log("click")
+  ownCardStateChange(){
+    this.hasCardOwned = !this.hasCardOwned;
   }
 }
