@@ -8,9 +8,10 @@ import {ActionSheetController} from "@ionic/angular";
   styleUrls: ['./new-card.page.scss'],
 })
 export class NewCardPage implements OnInit {
-  selectedIcon = ""
   isOnSelector = true
   id: number = 1
+
+  itemsSelected: any = []
 
   actionSheetButtons = [
     {
@@ -18,7 +19,8 @@ export class NewCardPage implements OnInit {
       text: 'name',
       data: {
         action: 'Name',
-        icon: "person-circle"
+        icon: "person-circle",
+        placeholder: 'Enter name'
       },
     },
     {
@@ -27,6 +29,7 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Phone number',
         icon: 'call',
+        placeholder: 'Enter number'
       },
     },
     {
@@ -35,6 +38,7 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Email',
         icon: 'mail',
+        placeholder: 'Enter email'
       },
     },
     {
@@ -43,6 +47,7 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Location',
         icon: 'location',
+        placeholder: 'enter location'
       },
     },
     {
@@ -63,18 +68,39 @@ export class NewCardPage implements OnInit {
   }
 
   async presentActionSheet() {
-    this.selectedIcon = ''
     this.isOnSelector = !this.isOnSelector
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Actions',
+      header: 'Select one',
       buttons: this.actionSheetButtons,
     });
 
-    await actionSheet.present();
-    await actionSheet.onDidDismiss().then((data) => {
-      this.selectedIcon = data.data.icon
-      console.log(data)
+    actionSheet.onDidDismiss().then((data) => {
+      const selectedAction = data.data.action
+      if (data.data.action !== 'cancel'){
+        this.itemsSelected.push(data.data)
+      }
+
+      this.deleteAction(selectedAction, 'Name')
+      this.deleteAction(selectedAction, 'Phone number')
+      this.deleteAction(selectedAction, 'Email')
+      this.deleteAction(selectedAction, 'Location')
+
     })
+
+    console.log(this.actionSheetButtons)
+    await actionSheet.present();
+  }
+
+  deleteAction(selectedAction: any, action: any){
+    if (selectedAction === action){
+      const deleteButtonIndex = this.actionSheetButtons.findIndex(
+        (button) =>{
+          return button.data.action === action
+        }
+      )
+      console.log('deleteButtonIndex: ',deleteButtonIndex)
+      this.actionSheetButtons.splice(deleteButtonIndex, 1)
+    }
   }
 
   onAddField(){
