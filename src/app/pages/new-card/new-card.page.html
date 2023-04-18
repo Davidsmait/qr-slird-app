@@ -21,7 +21,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="true">
+
   <div class="grid-container">
     <ion-grid class="">
       <ion-row
@@ -42,6 +43,7 @@
         </ion-col>
       </ion-row>
 
+
       <ion-row>
         <div class="card card--filter-opacity" >
           <div class="card-inner ">
@@ -60,13 +62,15 @@
         </div>
       </ion-row>
 
+
       <ion-row class="logo-selector">
         <ion-col size="9" >
           <ion-item
             lines="none"
             [button]="true"
             detail="true"
-            detail-icon="chevron-down-outline">
+            detail-icon="chevron-down-outline"
+            class="border-item">
             <ion-label>
               <p class="selector-label">Select a logo</p>
             </ion-label>
@@ -80,45 +84,80 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="more-files-selector">
+      <ion-row class="more-files-selector ion-align-items-center">
         <ion-col>
           <h1 class="title-more-fields">Add more fields</h1>
         </ion-col>
-      </ion-row>
-
-      <ion-row >
-        <ion-col size="12" >
-          <ion-item
-            (click)="presentActionSheet()"
-            lines="none"
-            [button]="true"
-            detail="true"
-            detail-icon="chevron-down-outline">
-            <ion-label>
-              <p>Select menu</p>
-            </ion-label>
-          </ion-item>
+        <ion-col>
+          <ion-icon size="large" name="add-circle" (click)="presentActionSheet()"></ion-icon>
         </ion-col>
       </ion-row>
 
-      <ion-row  *ngFor="let item of itemsSelected" class="ion-margin-vertical">
+<!--      <ion-row >-->
+<!--        <ion-col size="12" >-->
+<!--          <ion-item-->
+<!--            (click)="presentActionSheet()"-->
+<!--            lines="none"-->
+<!--            [button]="true"-->
+<!--            detail="true"-->
+<!--            detail-icon="chevron-down-outline"-->
+<!--            class="border-item">-->
+<!--            <ion-label>-->
+<!--              <p>Select menu</p>-->
+<!--            </ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+<!--      </ion-row>-->
 
-        <ion-col size="10" >
-          <ion-item lines="none">
-            <ion-input [placeholder]="item.placeholder"></ion-input>
-            <ion-icon [name]="item.icon"></ion-icon>
-          </ion-item>
+      <ion-row
+        *ngFor="let item of selectedItems; let i = index"
+        class="ion-margin-vertical">
+        <ion-col size="12">
+          <h1>{{item.data.action}}</h1>
         </ion-col>
-        <ion-col size="2">
-          <ion-button
-            (click)="onAddField()"
-            class="button-col template-button ion-float-right">
-            Add
-          </ion-button>
-        </ion-col>
+
+        <ng-container *ngIf="item.data.active">
+          <ion-col size="10" >
+            <ion-item lines="none" class="border-item">
+              <ion-input
+                [placeholder]="item.data.placeholder"
+                [(ngModel)]="item.data.value"></ion-input>
+              <ion-icon [name]="item.data.icon"></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button
+              (click)="onAddField(item)"
+              class="button-col template-button ion-float-right">
+              Add
+            </ion-button>
+          </ion-col>
+        </ng-container>
+
+        <ng-container *ngIf="!item.data.active">
+          <ion-col size="8" >
+            <p>{{item.data.value}}</p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon
+              (click)="onDeleteField(item,i)"
+              color="danger"
+              name="trash-outline"
+              class="icons"></ion-icon>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon
+              (click)="onChangeField(item)"
+              name="create-outline"
+              class="icons">
+            </ion-icon>
+          </ion-col>
+        </ng-container>
+
       </ion-row>
 
     </ion-grid>
+
   </div>
 
 </ion-content>

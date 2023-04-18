@@ -11,7 +11,7 @@ export class NewCardPage implements OnInit {
   isOnSelector = true
   id: number = 1
 
-  itemsSelected: any = []
+  selectedItems: any = []
 
   actionSheetButtons = [
     {
@@ -20,7 +20,9 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Name',
         icon: "person-circle",
-        placeholder: 'Enter name'
+        placeholder: 'Enter name',
+        value: '',
+        active: true
       },
     },
     {
@@ -29,7 +31,9 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Phone number',
         icon: 'call',
-        placeholder: 'Enter number'
+        placeholder: 'Enter number',
+        value: null,
+        active: true
       },
     },
     {
@@ -38,7 +42,9 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Email',
         icon: 'mail',
-        placeholder: 'Enter email'
+        placeholder: 'Enter email',
+        value: '',
+        active: true
       },
     },
     {
@@ -47,7 +53,9 @@ export class NewCardPage implements OnInit {
       data: {
         action: 'Location',
         icon: 'location',
-        placeholder: 'enter location'
+        placeholder: 'Enter location',
+        value: '',
+        active: true
       },
     },
     {
@@ -77,7 +85,7 @@ export class NewCardPage implements OnInit {
     actionSheet.onDidDismiss().then((data) => {
       const selectedAction = data.data.action
       if (data.data.action !== 'cancel'){
-        this.itemsSelected.push(data.data)
+        this.selectedItems.unshift(data)
       }
 
       this.deleteAction(selectedAction, 'Name')
@@ -87,7 +95,6 @@ export class NewCardPage implements OnInit {
 
     })
 
-    console.log(this.actionSheetButtons)
     await actionSheet.present();
   }
 
@@ -98,12 +105,31 @@ export class NewCardPage implements OnInit {
           return button.data.action === action
         }
       )
-      console.log('deleteButtonIndex: ',deleteButtonIndex)
       this.actionSheetButtons.splice(deleteButtonIndex, 1)
     }
   }
 
-  onAddField(){
-    this.isOnSelector = !this.isOnSelector
+  onAddField(item:any){
+    item.data.active = !item.data.active
+  }
+
+  onDeleteField(item:any, i: number){
+    item.data.active = !item.data.active
+
+    this.selectedItems.splice(i,1)
+
+    this.actionSheetButtons.push(
+      {
+        icon: item.data.icon,
+        text: item.data.action,
+        data: item.data,
+      },
+    )
+    item.data.value = undefined
+  }
+
+  onChangeField(item: any){
+    item.data.active = !item.data.active
+
   }
 }
