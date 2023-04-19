@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
+import {PhotoService} from "../../services/photo.service";
 
 @Component({
   selector: 'app-new-card',
@@ -8,6 +9,8 @@ import {ActionSheetController} from "@ionic/angular";
   styleUrls: ['./new-card.page.scss'],
 })
 export class NewCardPage implements OnInit {
+  selectedImage : string = ''
+  isOnLogoSelector = true
   isOnSelector = true
   id: number = 1
 
@@ -66,8 +69,10 @@ export class NewCardPage implements OnInit {
       },
     },
   ]
-  constructor(private route: ActivatedRoute, private actionSheetCtrl: ActionSheetController) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private actionSheetCtrl: ActionSheetController,
+    private photoService: PhotoService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -132,4 +137,22 @@ export class NewCardPage implements OnInit {
     item.data.active = !item.data.active
 
   }
+
+  onAddIcon(){
+    this.isOnLogoSelector = !this.isOnLogoSelector
+
+    this.photoService.takeFromGallery().then(
+      (data)=>{
+        this.selectedImage = data.photos[0].webPath
+        console.log(data.photos)
+      }
+    )
+  }
+
+  onChangeIcon(){
+    this.isOnLogoSelector = !this.isOnLogoSelector
+  }
+
+
 }
+

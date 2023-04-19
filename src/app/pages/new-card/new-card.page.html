@@ -64,24 +64,43 @@
 
 
       <ion-row class="logo-selector">
-        <ion-col size="9" >
-          <ion-item
-            lines="none"
-            [button]="true"
-            detail="true"
-            detail-icon="chevron-down-outline"
-            class="border-item">
-            <ion-label>
-              <p class="selector-label">Select a logo</p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col size="3">
-          <ion-button
-            class="button-col template-button ion-float-right">
-            Upload
-          </ion-button>
-        </ion-col>
+
+        <ng-container *ngIf="isOnLogoSelector">
+          <ion-col size="9" >
+            <ion-item
+              lines="none"
+              [button]="true"
+              detail="true"
+              detail-icon="chevron-down-outline"
+              class="border-item"
+              (click)="onAddIcon()">
+              <ion-label>
+                <p class="selector-label">Select a logo</p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button
+              class="button-col template-button ion-float-right"
+              (click)="onAddIcon()">
+              Upload
+            </ion-button>
+          </ion-col>
+        </ng-container>
+
+        <ng-container *ngIf="!isOnLogoSelector">
+          <ion-col size="10" class="" >
+            <ion-img [src]="selectedImage" class="selected-image ion-float-left"></ion-img>
+          </ion-col>
+          <ion-col size="2" >
+            <ion-icon
+              (click)="onChangeIcon()"
+              name="create-outline"
+              class="center">
+            </ion-icon>
+          </ion-col>
+        </ng-container>
+
       </ion-row>
 
       <ion-row class="more-files-selector ion-align-items-center">
@@ -143,13 +162,13 @@
               (click)="onDeleteField(item,i)"
               color="danger"
               name="trash-outline"
-              class="icons"></ion-icon>
+              class="center"></ion-icon>
           </ion-col>
           <ion-col size="2">
             <ion-icon
               (click)="onChangeField(item)"
               name="create-outline"
-              class="icons">
+              class="center">
             </ion-icon>
           </ion-col>
         </ng-container>
