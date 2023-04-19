@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../services/photo.service";
+import {ActionSheetService} from "../../services/action-sheet.service";
 
 @Component({
   selector: 'app-new-card',
@@ -9,70 +10,21 @@ import {PhotoService} from "../../services/photo.service";
   styleUrls: ['./new-card.page.scss'],
 })
 export class NewCardPage implements OnInit {
-  selectedImage : string = ''
   isOnLogoSelector = true
   isOnSelector = true
+
+  selectedImage : string = ''
   id: number = 1
 
-  selectedItems: any = []
+  selectedActions = this.actionSheetService.selectedActions
 
-  actionSheetButtons = [
-    {
-      icon: "person-circle",
-      text: 'name',
-      data: {
-        action: 'Name',
-        icon: "person-circle",
-        placeholder: 'Enter name',
-        value: '',
-        active: true
-      },
-    },
-    {
-      icon: 'call',
-      text: 'phone number',
-      data: {
-        action: 'Phone number',
-        icon: 'call',
-        placeholder: 'Enter number',
-        value: null,
-        active: true
-      },
-    },
-    {
-      icon: 'mail',
-      text: 'email',
-      data: {
-        action: 'Email',
-        icon: 'mail',
-        placeholder: 'Enter email',
-        value: '',
-        active: true
-      },
-    },
-    {
-      icon: 'location',
-      text: 'location',
-      data: {
-        action: 'Location',
-        icon: 'location',
-        placeholder: 'Enter location',
-        value: '',
-        active: true
-      },
-    },
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      data: {
-        action: 'cancel',
-      },
-    },
-  ]
+  actionSheetButtons: Array<object> = this.actionSheetService.actions
+
   constructor(
     private route: ActivatedRoute,
-    private actionSheetCtrl: ActionSheetController,
-    private photoService: PhotoService) {}
+    private actionSheetController: ActionSheetController,
+    private photoService: PhotoService,
+    private actionSheetService: ActionSheetService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -80,61 +32,24 @@ export class NewCardPage implements OnInit {
     })
   }
 
-  async presentActionSheet() {
+  async activeActionSheet() {
     this.isOnSelector = !this.isOnSelector
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Select one',
-      buttons: this.actionSheetButtons,
-    });
-
-    actionSheet.onDidDismiss().then((data) => {
-      const selectedAction = data.data.action
-      if (data.data.action !== 'cancel'){
-        this.selectedItems.unshift(data)
-      }
-
-      this.deleteAction(selectedAction, 'Name')
-      this.deleteAction(selectedAction, 'Phone number')
-      this.deleteAction(selectedAction, 'Email')
-      this.deleteAction(selectedAction, 'Location')
-
-    })
-
-    await actionSheet.present();
+    await this.actionSheetService.presentActionSheet()
   }
 
-  deleteAction(selectedAction: any, action: any){
-    if (selectedAction === action){
-      const deleteButtonIndex = this.actionSheetButtons.findIndex(
-        (button) =>{
-          return button.data.action === action
-        }
-      )
-      this.actionSheetButtons.splice(deleteButtonIndex, 1)
-    }
+
+  onAddField(action:any){
+    this.actionSheetService.toggleActionState(action)
   }
 
-  onAddField(item:any){
-    item.data.active = !item.data.active
+  onDeleteField(action:any, i: number){
+    this.actionSheetService.toggleActionState(action)
+    this.actionSheetService.returnActionToSheet(action,i)
+    action.data.value = undefined
   }
 
-  onDeleteField(item:any, i: number){
-    item.data.active = !item.data.active
-
-    this.selectedItems.splice(i,1)
-
-    this.actionSheetButtons.push(
-      {
-        icon: item.data.icon,
-        text: item.data.action,
-        data: item.data,
-      },
-    )
-    item.data.value = undefined
-  }
-
-  onChangeField(item: any){
-    item.data.active = !item.data.active
+  onChangeField(action: any){
+    this.actionSheetService.toggleActionState(action)
 
   }
 
