@@ -3,6 +3,9 @@ import {ActivatedRoute} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../services/photo.service";
 import {ActionSheetService} from "../../services/action-sheet.service";
+import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
+import {SelectedAction} from "../../interfaces/selected-action";
+import {GalleryPhotos} from "@capacitor/camera/dist/esm/definitions";
 
 @Component({
   selector: 'app-new-card',
@@ -14,11 +17,11 @@ export class NewCardPage implements OnInit {
   isOnSelector = true
 
   selectedImage : string = ''
-  id: number = 1
+  id : number = 1
 
-  selectedActions = this.actionSheetService.selectedActions
+  selectedActions : Array<SelectedAction> = this.actionSheetService.selectedActions
 
-  actionSheetButtons: Array<object> = this.actionSheetService.actions
+  actionSheetButtons : Array<ActionSheetButton> = this.actionSheetService.actions
 
   constructor(
     private route: ActivatedRoute,
@@ -37,18 +40,19 @@ export class NewCardPage implements OnInit {
     await this.actionSheetService.presentActionSheet()
   }
 
-
-  onAddField(action:any){
+  onAddField(action : SelectedAction){
     this.actionSheetService.toggleActionState(action)
+
   }
 
-  onDeleteField(action:any, i: number){
+  onDeleteField(action : SelectedAction, index : number){
     this.actionSheetService.toggleActionState(action)
-    this.actionSheetService.returnActionToSheet(action,i)
+    this.actionSheetService.returnActionToSheet(action,index)
     action.data.value = undefined
+    console.log(action)
   }
 
-  onChangeField(action: any){
+  onChangeField(action : SelectedAction){
     this.actionSheetService.toggleActionState(action)
 
   }
@@ -57,7 +61,7 @@ export class NewCardPage implements OnInit {
     this.isOnLogoSelector = !this.isOnLogoSelector
 
     this.photoService.takeFromGallery().then(
-      (data)=>{
+      (data : GalleryPhotos)=>{
         this.selectedImage = data.photos[0].webPath
         console.log(data.photos)
       }
@@ -67,7 +71,5 @@ export class NewCardPage implements OnInit {
   onChangeIcon(){
     this.isOnLogoSelector = !this.isOnLogoSelector
   }
-
-
 }
 

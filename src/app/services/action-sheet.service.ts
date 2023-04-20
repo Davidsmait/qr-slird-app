@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {ActionSheetController} from "@ionic/angular";
+import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
+import {SelectedAction} from "../interfaces/selected-action";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActionSheetService {
-  selectedActions: any = []
+  selectedActions: Array<SelectedAction> = []
 
-  actions = [
+  actions : Array<ActionSheetButton> = [
     {
       icon: "person-circle",
       text: 'name',
@@ -73,21 +75,22 @@ export class ActionSheetService {
       const selectedAction = data.data.action
 
       if (data.data.action !== 'cancel'){
-        this.selectedActions.unshift(data)
+        this.selectedActions.unshift(<SelectedAction>data)
 
         for (let action of this.actions) {
           this.removeActionFromSheet(selectedAction, action.data.action)
         }
       }
+      // console.log(this.selectedActions)
     })
 
     await actionSheet.present();
   }
 
-  removeActionFromSheet(selectedAction: any, action: any){
+  private removeActionFromSheet(selectedAction: string, action: string){
     if (selectedAction === action){
       const deleteButtonIndex = this.actions.findIndex(
-        (button) =>{
+        (button : ActionSheetButton) =>{
           return button.data.action === action
         }
       )
@@ -95,12 +98,12 @@ export class ActionSheetService {
     }
   }
 
-  toggleActionState(action:any){
+  toggleActionState(action:SelectedAction){
     action.data.active = !action.data.active
   }
 
-  returnActionToSheet(action:any, i: number){
-    this.selectedActions.splice(i,1)
+  returnActionToSheet(action:SelectedAction, index: number){
+    this.selectedActions.splice(index,1)
 
     this.actions.push(
       {
