@@ -6,12 +6,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {TabsComponent} from "./components/tabs/tabs.component";
-import {FormsModule} from "@angular/forms";
+import { TabsComponent } from "./components/tabs/tabs.component";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [AppComponent, TabsComponent],
-    imports: [FormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+    imports: [ReactiveFormsModule,FormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
     providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
     bootstrap: [AppComponent],
     exports: [

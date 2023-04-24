@@ -23,7 +23,9 @@
 
 <ion-content fullscreen="true">
 
-  <div class="grid-container">
+  <div
+    class="grid-container"
+    [formGroup]="actionForm">
     <ion-grid class="">
       <ion-row
         class="
@@ -127,20 +129,21 @@
 <!--          </ion-item>-->
 <!--        </ion-col>-->
 <!--      </ion-row>-->
-
       <ion-row
         *ngFor="let action of selectedActions; let i = index"
-        class="ion-margin-vertical">
+        class="ion-margin-vertical"
+        >
         <ion-col size="12">
           <h1>{{action.data.action}}</h1>
         </ion-col>
 
-        <ng-container *ngIf="action.data.active">
+        <ng-container *ngIf="action.data.active" >
           <ion-col size="10" >
             <ion-item lines="none" class="border-item">
               <ion-input
                 [placeholder]="action.data.placeholder"
-                [(ngModel)]="action.data.value"></ion-input>
+                [formControlName]="action.data.formName"
+                ></ion-input>
               <ion-icon [name]="action.data.icon"></ion-icon>
             </ion-item>
           </ion-col>
@@ -155,7 +158,7 @@
 
         <ng-container *ngIf="!action.data.active">
           <ion-col size="8" >
-            <p>{{action.data.value}}</p>
+            <p>{{actionForm.get(action.data.formName)!.value}}</p>
           </ion-col>
           <ion-col size="2">
             <ion-icon
@@ -173,6 +176,14 @@
           </ion-col>
         </ng-container>
 
+
+
+      </ion-row>
+
+      <ion-row >
+        <ion-col size="12">
+          <ion-button [disabled]="!actionForm.valid" (click)="onSubmit()">submit</ion-button>
+        </ion-col>
       </ion-row>
 
     </ion-grid>

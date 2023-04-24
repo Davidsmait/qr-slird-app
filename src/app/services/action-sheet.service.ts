@@ -18,7 +18,8 @@ export class ActionSheetService {
         icon: "person-circle",
         placeholder: 'Enter name',
         value: '',
-        active: true
+        active: true,
+        formName: 'name'
       },
     },
     {
@@ -29,7 +30,8 @@ export class ActionSheetService {
         icon: 'call',
         placeholder: 'Enter number',
         value: null,
-        active: true
+        active: true,
+        formName: 'number'
       },
     },
     {
@@ -40,7 +42,8 @@ export class ActionSheetService {
         icon: 'mail',
         placeholder: 'Enter email',
         value: '',
-        active: true
+        active: true,
+        formName: 'email'
       },
     },
     {
@@ -51,7 +54,8 @@ export class ActionSheetService {
         icon: 'location',
         placeholder: 'Enter location',
         value: '',
-        active: true
+        active: true,
+        formName: 'location'
       },
     },
     {
@@ -80,9 +84,7 @@ export class ActionSheetService {
         for (let action of this.actions) {
           this.removeActionFromSheet(selectedAction, action.data.action)
         }
-      }
-      // console.log(this.selectedActions)
-    })
+      }})
 
     await actionSheet.present();
   }
