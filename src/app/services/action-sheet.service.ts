@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import {ActionSheetController} from "@ionic/angular";
 import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
 import {SelectedAction} from "../interfaces/selected-action";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActionSheetService {
+  selectedAction : Subject<any> = new Subject<any>()
+
   selectedActions: Array<SelectedAction> = []
 
   actions : Array<ActionSheetButton> = [
@@ -76,6 +79,7 @@ export class ActionSheetService {
     });
 
     actionSheet.onDidDismiss().then((data) => {
+
       const selectedAction = data.data.action
 
       if (data.data.action !== 'cancel'){
@@ -86,7 +90,12 @@ export class ActionSheetService {
         }
       }})
 
+
     await actionSheet.present();
+
+    actionSheet.onWillDismiss().then((data) => {
+      this.updateSelectedAction(data)
+    })
   }
 
   private removeActionFromSheet(selectedAction: string, action: string){
@@ -114,7 +123,12 @@ export class ActionSheetService {
         data: action.data,
       },
     )
-
   }
+
+  private updateSelectedAction(action: any): void{
+    this.selectedAction.next(action)
+  }
+
+
 }
 

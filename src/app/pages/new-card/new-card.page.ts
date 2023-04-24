@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../services/photo.service";
@@ -27,6 +27,7 @@ export class NewCardPage implements OnInit {
   actionSheetButtons : Array<ActionSheetButton> = this.actionSheetService.actions
 
   constructor(
+    private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private photoService: PhotoService,
@@ -36,26 +37,38 @@ export class NewCardPage implements OnInit {
     this.actionForm =this.fb.group({
       name: [''],
       number: [''],
-      email: [''],
+      email: ['' , [Validators.email]],
       location: ['']
     })
 
-    console.log(this.actionForm.valid)
+
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = +params.get('id')!
     })
+
+
+
+    this.actionSheetService.selectedAction.subscribe((action: SelectedAction) => {
+      const actionFormName = action.data.formName
+      this.actionForm.get(actionFormName)?.setValidators([Validators.required])
+      this.cd.detectChanges()
+
+    })
   }
 
   async activeActionSheet() {
     this.isOnSelector = !this.isOnSelector
     await this.actionSheetService.presentActionSheet()
+
+
   }
 
   onAddField(action : SelectedAction){
     this.actionSheetService.toggleActionState(action)
+    console.log(this.actionForm)
   }
 
   onDeleteField(action : SelectedAction, index : number){
@@ -90,7 +103,6 @@ export class NewCardPage implements OnInit {
 
   onSubmit(){
 
-    console.log(this.actionForm.value)
   }
 
 
