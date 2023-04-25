@@ -35,10 +35,10 @@ export class NewCardPage implements OnInit {
     private fb: FormBuilder) {
 
     this.actionForm =this.fb.group({
-      name: [''],
-      number: [''],
-      email: ['' , [Validators.email]],
-      location: ['']
+      name: ['', [Validators.pattern('^[a-zA-ZáéíóúñÁÉÍÓÚÑ\\s]+$')]],
+      number: ['', [Validators.pattern('^[0-9]*$')]],
+      email: ['' , [Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]],
+      location: ['', [Validators.pattern('^[a-zA-Z ]*$')]]
     })
 
 
@@ -53,22 +53,20 @@ export class NewCardPage implements OnInit {
 
     this.actionSheetService.selectedAction.subscribe((action: SelectedAction) => {
       const actionFormName = action.data.formName
-      this.actionForm.get(actionFormName)?.setValidators([Validators.required])
+      this.actionForm.get(actionFormName)?.addValidators([Validators.required])
       this.cd.detectChanges()
-
     })
+
   }
 
   async activeActionSheet() {
     this.isOnSelector = !this.isOnSelector
     await this.actionSheetService.presentActionSheet()
 
-
   }
 
   onAddField(action : SelectedAction){
     this.actionSheetService.toggleActionState(action)
-    console.log(this.actionForm)
   }
 
   onDeleteField(action : SelectedAction, index : number){
@@ -102,8 +100,9 @@ export class NewCardPage implements OnInit {
 //  FORM
 
   onSubmit(){
-
+    console.log(this.actionForm.value)
   }
+
 
 
 }

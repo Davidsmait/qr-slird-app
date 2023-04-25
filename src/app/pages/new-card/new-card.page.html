@@ -144,6 +144,7 @@
                 [placeholder]="action.data.placeholder"
                 [formControlName]="action.data.formName"
                 ></ion-input>
+
               <ion-icon [name]="action.data.icon"></ion-icon>
             </ion-item>
           </ion-col>
@@ -154,6 +155,12 @@
               class="button-col template-button ion-float-right">
               Add
             </ion-button>
+          </ion-col>
+
+          <ion-col size="12">
+            <div
+              *ngIf="actionForm.get(action.data.formName)?.hasError('pattern') && (actionForm.get(action.data.formName)?.touched && actionForm.get(action.data.formName)?.dirty)">
+              Please enter a valid {{action.data.formName}}</div>
           </ion-col>
         </ng-container>
 
@@ -185,6 +192,7 @@
         <ion-col size="12">
           <ion-button
             class="template-button"
+            [hidden]="!selectedImage"
             [disabled]="actionForm.invalid"
             (click)="onSubmit()">Upload</ion-button>
         </ion-col>
