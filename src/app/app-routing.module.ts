@@ -19,19 +19,23 @@ const routes: Routes = [
             path: 'new-card',
             children: [
               {
+                path: 'card-templates',
+                redirectTo: '../card-templates'
+              },
+              {
                 path: '',
                 loadChildren: () => import('./pages/new-card/new-card.module').then( m => m.NewCardPageModule)
-              },
-
-              {
-                path: 'card-templates',
-                loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
               }
             ]
           },
           {
             path: 'new-card/:id',
-            redirectTo: 'new-card'
+            redirectTo: 'new-card',
+          },
+          {
+            path: 'card-templates',
+            loadChildren: () => import('./pages/card-templates/card-templates.module').then( m => m.CardTemplatesPageModule)
+
           },
         ]
       },

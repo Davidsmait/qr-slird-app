@@ -19,8 +19,10 @@ export class CardTemplatesPage implements OnInit {
   }
 
   onChooseTemplate(id:number){
-    console.log('id: ',id)
-    this.router.navigate(['tabs','home','new-card',id])
+    console.log('id from template component: ',id)
+    this.router.navigate(
+      ['/tabs/home/new-card'],
+      {queryParams: {id}, queryParamsHandling: 'merge'})
   }
 
 }

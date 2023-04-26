@@ -39,7 +39,7 @@
         <ion-col>
           <ion-button
             class="template-button ion-float-end"
-            [routerLink]="['card-templates']">
+            [routerLink]="['../card-templates']">
             Select a template
           </ion-button>
         </ion-col>
@@ -183,17 +183,13 @@
             </ion-icon>
           </ion-col>
         </ng-container>
-
-
-
       </ion-row>
 
       <ion-row >
         <ion-col size="12">
           <ion-button
             class="template-button"
-            [hidden]="!selectedImage"
-            [disabled]="actionForm.invalid"
+            [disabled]="!selectedImage || isUpdateBtnDisabled"
             (click)="onSubmit()">Upload</ion-button>
         </ion-col>
       </ion-row>
