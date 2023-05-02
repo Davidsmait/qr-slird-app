@@ -3,6 +3,7 @@ import {ActionSheetController} from "@ionic/angular";
 import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
 import {SelectedAction} from "../interfaces/selected-action";
 import {Subject} from "rxjs";
+import {Validators} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,10 @@ export class ActionSheetService {
         placeholder: 'Enter name',
         value: '',
         active: true,
-        formName: 'name'
+        formName: 'name',
+        validators: [
+          Validators.pattern('^[a-zA-ZáéíóúñÁÉÍÓÚÑ\\s]+$')
+        ]
       },
     },
     {
@@ -34,7 +38,8 @@ export class ActionSheetService {
         placeholder: 'Enter number',
         value: null,
         active: true,
-        formName: 'number'
+        formName: 'number',
+        validators: [ Validators.pattern('^[0-9]*$')]
       },
     },
     {
@@ -46,7 +51,10 @@ export class ActionSheetService {
         placeholder: 'Enter email',
         value: '',
         active: true,
-        formName: 'email'
+        formName: 'email',
+        validators: [
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')
+        ]
       },
     },
     {
@@ -58,7 +66,8 @@ export class ActionSheetService {
         placeholder: 'Enter location',
         value: '',
         active: true,
-        formName: 'location'
+        formName: 'location',
+        validators: [Validators.pattern('^[a-zA-Z ]*$')]
       },
     },
     {

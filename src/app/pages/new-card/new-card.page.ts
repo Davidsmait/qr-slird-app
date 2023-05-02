@@ -34,28 +34,24 @@ export class NewCardPage implements OnInit {
     private actionSheetService: ActionSheetService,
     private fb: FormBuilder) {
 
-    this.actionForm =this.fb.group({
-      name: ['', [Validators.pattern('^[a-zA-ZáéíóúñÁÉÍÓÚÑ\\s]+$')]],
-      number: ['', [Validators.pattern('^[0-9]*$')]],
-      email: ['' , [Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]],
-      location: ['', [Validators.pattern('^[a-zA-Z ]*$')]],
+    this.actionForm = this.fb.group({
       image: [''],
       templateId: []
     })
 
+    this.actionSheetButtons.forEach((action, index) => {
+      if (!action.role){
+        this.actionForm.addControl(
+          action.data.formName,
+          this.fb.control(action.data.value, action.data.validators))
+      }
+    })
 
   }
 
   ngOnInit() {
-    // this.route.paramMap.subscribe(params => {
-    //   this.id = +params.get('id')!
-    //   // console.log("id: ",this.id)
-    //   this.actionForm.get('templateId')?.setValue(+params.get('id')!)
-    // })
-
     this.route.queryParamMap.subscribe((param) => {
       this.actionForm.get('templateId')?.setValue(param.get('id'))
-      console.log(param.get('id'))
     })
 
     this.actionSheetService.selectedAction.subscribe((action: SelectedAction) => {
