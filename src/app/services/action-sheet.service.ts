@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActionSheetController} from "@ionic/angular";
 import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
 import {SelectedAction} from "../interfaces/selected-action";
-import {Subject} from "rxjs";
+import { Subject} from "rxjs";
 import {Validators} from "@angular/forms";
 
 @Injectable({
@@ -122,22 +122,42 @@ export class ActionSheetService {
     action.data.active = !action.data.active
   }
 
+  toggleActionsStateToTrue(){
+    for (let i = 0; i < this.selectedActions.length; i++) {
+      this.selectedActions[i].data.active = true;
+    }
+  }
+
   returnActionToSheet(action:SelectedAction, index: number){
     this.selectedActions.splice(index,1)
 
-    this.actions.push(
-      {
-        icon: action.data.icon,
-        text: action.data.action,
-        data: action.data,
-      },
-    )
+    this.pushToSheet(action)
+  }
+
+  returnActionsToSheet(){
+
+    for (const action of this.selectedActions) {
+      this.pushToSheet(action)
+    }
+    this.selectedActions.splice(0, this.selectedActions.length)
   }
 
   private updateSelectedAction(action: any): void{
     this.selectedAction.next(action)
   }
 
+  private pushToSheet(action: SelectedAction) {
+    this.actions.push(
+      {
+        icon: action.data.icon,
+        text: action.data.action,
+        data: action.data,
+      })
+  }
+
+  getActionSheetButton() {
+    return [...this.actions]
+  }
 
 }
 

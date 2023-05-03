@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../services/photo.service";
@@ -14,17 +14,17 @@ import {of} from "rxjs";
   templateUrl: './new-card.page.html',
   styleUrls: ['./new-card.page.scss'],
 })
-export class NewCardPage implements OnInit {
-  actionForm : FormGroup
+export class NewCardPage implements OnInit , OnDestroy {
+  actionForm : FormGroup = new FormGroup({})
 
   isOnLogoSelector = true
   isOnSelector = true
   isUpdateBtnDisabled = true
   selectedImage : string = ''
 
-  selectedActions : Array<SelectedAction> = this.actionSheetService.selectedActions
+  selectedActions : Array<SelectedAction> = []
 
-  actionSheetButtons : Array<ActionSheetButton> = this.actionSheetService.actions
+  actionSheetButtons : Array<ActionSheetButton> = []
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -33,6 +33,11 @@ export class NewCardPage implements OnInit {
     private photoService: PhotoService,
     private actionSheetService: ActionSheetService,
     private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.selectedActions = this.actionSheetService.selectedActions
+    this.actionSheetButtons = this.actionSheetService.actions
 
     this.actionForm = this.fb.group({
       image: [''],
@@ -47,9 +52,6 @@ export class NewCardPage implements OnInit {
       }
     })
 
-  }
-
-  ngOnInit() {
     this.route.queryParamMap.subscribe((param) => {
       this.actionForm.get('templateId')?.setValue(param.get('id'))
     })
@@ -61,9 +63,12 @@ export class NewCardPage implements OnInit {
 
     // Change Detection
     this.actionForm.statusChanges.subscribe((status)=> {
-      console.log('status: ', status)
       this.isUpdateBtnDisabled = status === 'INVALID';
     })
+  }
+  ngOnDestroy() {
+    this.actionSheetService.toggleActionsStateToTrue()
+    this.actionSheetService.returnActionsToSheet()
   }
 
 
