@@ -15,17 +15,17 @@ export class ActionSheetService {
 
   actions : Array<ActionSheetButton> = [
     {
-      icon: "person-circle",
-      text: 'name',
+      icon: "logo-whatsapp",
+      text: 'whatsapp',
       data: {
-        action: 'Name',
-        icon: "person-circle",
-        placeholder: 'Enter name',
+        action: 'Whatsapp',
+        icon: "logo-whatsapp",
+        placeholder: 'Enter whatsapp',
         value: '',
         active: true,
-        formName: 'name',
+        formName: 'whatsapp',
         validators: [
-          Validators.pattern('^[a-zA-ZáéíóúñÁÉÍÓÚÑ\\s]+$')
+          Validators.pattern('^\\d{10,}$')
         ]
       },
     },
