@@ -11,6 +11,7 @@ import {UserCardsService} from "../../services/user-cards.service";
 import { KeyValuePipe} from "@angular/common";
 import {CardTemplatesPage} from "../card-templates/card-templates.page";
 import {CardTemplatesService} from "../../services/card-templates.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-new-card',
@@ -19,6 +20,8 @@ import {CardTemplatesService} from "../../services/card-templates.service";
   providers: [KeyValuePipe]
 })
 export class NewCardPage implements OnInit , OnDestroy {
+  private subscriptions : Subscription = new Subscription()
+
   actionForm : FormGroup = new FormGroup({})
 
   isOnLogoSelector = true
@@ -62,27 +65,40 @@ export class NewCardPage implements OnInit , OnDestroy {
       }
     })
 
-    this.route.queryParamMap.subscribe((param) => {
-      this.actionForm.get('templateId')?.setValue(param.get('id'))
-    })
+    this.subscriptions.add(
+      this.route.queryParamMap.subscribe((param) => {
+        this.actionForm.get('templateId')?.setValue(param.get('id'))
+      })
+    )
 
-    this.actionSheetService.selectedAction.subscribe((action: SelectedAction) => {
-      const actionFormName = action.data.formName
-      this.actionForm.get(actionFormName)?.addValidators([Validators.required])
-    })
+    this.subscriptions.add(
+      this.actionSheetService.selectedAction.subscribe((action: SelectedAction) => {
+        const actionFormName = action.data.formName
+        this.actionForm.get(actionFormName)?.addValidators([Validators.required])
+      })
+    )
 
-    // Change Detection
-    this.actionForm.statusChanges.subscribe((status)=> {
-      this.isUpdateBtnDisabled = status === 'INVALID';
-    })
 
-    this.cardTemplates.selectedCardSrc$.subscribe(src => {
-      this.templateSelected = src
-    })
+    this.subscriptions.add(
+      // Change Detection
+      this.actionForm.statusChanges.subscribe((status)=> {
+        this.isUpdateBtnDisabled = status === 'INVALID';
+      })
+    )
+
+    this.subscriptions.add(
+      this.cardTemplates.selectedCardSrc$.subscribe(src => {
+        this.templateSelected = src
+      })
+    )
+
+
   }
   ngOnDestroy() {
     this.actionSheetService.toggleActionsStateToTrue()
     this.actionSheetService.returnActionsToSheet()
+
+    this.subscriptions.unsubscribe()
   }
 
 

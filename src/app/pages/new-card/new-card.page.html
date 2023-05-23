@@ -78,9 +78,15 @@
                 style="border-radius: 15px"
                 src="../../assets/images/card-back-demo.png"
                 alt="Imagen Trasera">
-              <h1 style="position: relative">David San luis</h1>
-                <div *ngFor="let action of selectedActions" >
-                  <div><ion-icon [name]="action.data.icon"/> {{actionForm.get(action.data.formName)!.value}}</div>
+              <h1
+                class="user-card-name"
+                style="position: relative">Keke Tang</h1>
+                <div
+                  class="user-items-card"
+                  *ngFor="let action of selectedActions" >
+                  <div class="user-item-card">
+                    <ion-icon [name]="action.data.icon"/> {{actionForm.get(action.data.formName)!.value}}
+                  </div>
                 </div>
             </div>
           </div>
