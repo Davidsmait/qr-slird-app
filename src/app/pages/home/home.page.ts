@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserCardsService} from "../../services/user-cards.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -8,12 +10,20 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class HomePage {
   hasCardOwned = false
+  ownedCards: any
+
+  // cardSubscription: Subscription
 
   cardSource = ["../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png","../../assets/images/card-demo@3x.png"]
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private userCards: UserCardsService,
+    private route: ActivatedRoute, private router: Router) {
+
+  }
 
   ownCardStateChange(){
-    this.hasCardOwned = !this.hasCardOwned;
+    console.log(this.ownedCards)
+    this.hasCardOwned = !this.hasCardOwned
   }
 
   onClickNew(){

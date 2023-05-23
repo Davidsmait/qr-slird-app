@@ -1,18 +1,22 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../services/photo.service";
 import {ActionSheetService} from "../../services/action-sheet.service";
 import {ActionSheetButton} from "@ionic/core/dist/types/components/action-sheet/action-sheet-interface";
 import {SelectedAction} from "../../interfaces/selected-action";
 import {GalleryPhotos} from "@capacitor/camera/dist/esm/definitions";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {of} from "rxjs";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserCardsService} from "../../services/user-cards.service";
+import { KeyValuePipe} from "@angular/common";
+import {CardTemplatesPage} from "../card-templates/card-templates.page";
+import {CardTemplatesService} from "../../services/card-templates.service";
 
 @Component({
   selector: 'app-new-card',
   templateUrl: './new-card.page.html',
   styleUrls: ['./new-card.page.scss'],
+  providers: [KeyValuePipe]
 })
 export class NewCardPage implements OnInit , OnDestroy {
   actionForm : FormGroup = new FormGroup({})
@@ -26,8 +30,14 @@ export class NewCardPage implements OnInit , OnDestroy {
 
   actionSheetButtons : Array<ActionSheetButton> = []
 
+
+  templateSelected: string = ''
+
   constructor(
+    private cardTemplates: CardTemplatesService,
+    private userCards: UserCardsService,
     private cd: ChangeDetectorRef,
+    private router: Router,
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private photoService: PhotoService,
@@ -64,6 +74,10 @@ export class NewCardPage implements OnInit , OnDestroy {
     // Change Detection
     this.actionForm.statusChanges.subscribe((status)=> {
       this.isUpdateBtnDisabled = status === 'INVALID';
+    })
+
+    this.cardTemplates.selectedCardSrc$.subscribe(src => {
+      this.templateSelected = src
     })
   }
   ngOnDestroy() {
@@ -110,10 +124,20 @@ export class NewCardPage implements OnInit , OnDestroy {
     this.isOnLogoSelector = !this.isOnLogoSelector
   }
 
+  shouldShowItem(value: any){
+    return !(value.key === "image" || value.key === "templateId");
+
+  }
+
 //  FORM
 
   onSubmit(){
-    console.log(this.actionForm.value)
+    console.log(this.selectedActions)
+    console.log(this.actionForm)
+
+    this.userCards.addCard(this.actionForm.value)
+
+    this.router.navigate(['/tabs/home'])
   }
 
 

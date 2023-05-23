@@ -46,7 +46,7 @@
       </ion-row>
 
 
-      <ion-row>
+      <ion-row *ngIf="!templateSelected">
         <div class="card card--filter-opacity" >
           <div class="card-inner ">
             <div class="card-front">
@@ -59,6 +59,29 @@
                 style="border-radius: 15px"
                 src="../../assets/images/card-back-demo.png"
                 alt="Imagen Trasera">
+            </div>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row *ngIf="templateSelected">
+        <div class="card " >
+          <div class="card-inner ">
+            <div class="card-front">
+              <img
+                [src]="templateSelected"
+                alt="Imagen Frontal">
+            </div>
+            <div class="card-back ">
+              <img
+                class="card--filter-opacity center"
+                style="border-radius: 15px"
+                src="../../assets/images/card-back-demo.png"
+                alt="Imagen Trasera">
+              <h1 style="position: relative">David San luis</h1>
+                <div *ngFor="let action of selectedActions" >
+                  <div><ion-icon [name]="action.data.icon"/> {{actionForm.get(action.data.formName)!.value}}</div>
+                </div>
             </div>
           </div>
         </div>
