@@ -7,18 +7,21 @@ import {Subject} from "rxjs";
 })
 export class UserCardsService {
 
-  private userCard = new Subject<any>()
+  private userCardsSubject = new Subject<any>()
   private userCards: any[] = []
+
+  userCardsSubject$ = this.userCardsSubject.asObservable()
+
 
   constructor() { }
 
   addCard(data: any){
-    this.userCards.push(data)
-    this.userCard.next(data)
+    this.userCards.unshift(data)
+    this.userCardsSubject.next(this.userCards)
   }
 
   getCards(){
-    return [...this.userCards]
+    return this.userCards.slice()
   }
 
 

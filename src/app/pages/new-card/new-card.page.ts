@@ -9,7 +9,6 @@ import {GalleryPhotos} from "@capacitor/camera/dist/esm/definitions";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserCardsService} from "../../services/user-cards.service";
 import { KeyValuePipe} from "@angular/common";
-import {CardTemplatesPage} from "../card-templates/card-templates.page";
 import {CardTemplatesService} from "../../services/card-templates.service";
 import {Subscription} from "rxjs";
 
@@ -148,8 +147,8 @@ export class NewCardPage implements OnInit , OnDestroy {
 //  FORM
 
   onSubmit(){
-    console.log(this.selectedActions)
-    console.log(this.actionForm)
+    // console.log(this.selectedActions)
+    // console.log(this.actionForm.value)
 
     this.userCards.addCard(this.actionForm.value)
 

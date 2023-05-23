@@ -29,13 +29,13 @@
     <h3 class="informative-text" (click)="ownCardStateChange()">Your business card</h3>
   </div>
 
-  <ng-container *ngIf="hasCardOwned">
-    <div *ngFor="let src of cardSource" class="card-container">
-      <ion-img  [src]="src" class="card"></ion-img>
+  <ng-container >
+    <div *ngFor="let card of ownedCards" class="card-container">
+      <ion-img  [src]="findImageSrc(card)" class="card"></ion-img>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!hasCardOwned">
+  <ng-container *ngIf="ownedCards.length === 0">
     <div
       class="image-container"
       (click)="ownCardStateChange()"

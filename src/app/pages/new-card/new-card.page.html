@@ -12,7 +12,9 @@
       New Card
     </ion-title>
     <ion-buttons slot="end" >
-      <ion-button >
+      <ion-button
+        [disabled]="!selectedImage || isUpdateBtnDisabled"
+        (click)="onSubmit()">
         <div class="toolbar-button-text secondary--color-gradient">
           Save
         </div>

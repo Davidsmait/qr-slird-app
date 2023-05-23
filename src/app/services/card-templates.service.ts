@@ -31,11 +31,15 @@ export class CardTemplatesService {
   ]
 
   changeSelectedCard(id: number){
-    const currentSrc = this.cards.find((card) => {
-       return card.id === id
-    })!.src
+    const currentSrc = this.findSrcViaId(id)
     console.log(currentSrc)
     this.selectedCardSrc.next(currentSrc)
+  }
+
+  findSrcViaId(id: number){
+    return this.cards.find((card) => {
+      return card.id === id
+    })!.src
   }
 
   constructor() { }
