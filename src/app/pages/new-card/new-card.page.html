@@ -13,7 +13,7 @@
     </ion-title>
     <ion-buttons slot="end" >
       <ion-button
-        [disabled]="!selectedImage || isUpdateBtnDisabled"
+        [disabled]="!selectedImage || isUpdateBtnDisabled || !templateSelected"
         (click)="onSubmit()">
         <div class="toolbar-button-text secondary--color-gradient">
           Save
@@ -50,7 +50,10 @@
 
       <ion-row *ngIf="!templateSelected">
         <div class="card card--filter-opacity" >
-          <div class="card-inner ">
+          <div
+            [ngClass]="{'rotate': isRotated}"
+            (click)="toggleRotation()"
+            class="card-inner " >
             <div class="card-front">
               <img
                 src="../../assets/images/card-demo@3x.png"
@@ -68,7 +71,10 @@
 
       <ion-row *ngIf="templateSelected">
         <div class="card " >
-          <div class="card-inner ">
+          <div
+            [ngClass]="{'rotate': isRotated}"
+            (click)="toggleRotation()"
+            class="card-inner ">
             <div class="card-front">
               <img
                 [src]="templateSelected"
@@ -220,7 +226,7 @@
         <ion-col size="12">
           <ion-button
             class="template-button"
-            [disabled]="!selectedImage || isUpdateBtnDisabled"
+            [disabled]="!selectedImage || isUpdateBtnDisabled || !templateSelected"
             (click)="onSubmit()">Upload</ion-button>
         </ion-col>
       </ion-row>

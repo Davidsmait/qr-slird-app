@@ -35,6 +35,8 @@ export class NewCardPage implements OnInit , OnDestroy {
 
   templateSelected: string = ''
 
+  isRotated = false
+
   constructor(
     private cardTemplates: CardTemplatesService,
     private userCards: UserCardsService,
@@ -142,6 +144,10 @@ export class NewCardPage implements OnInit , OnDestroy {
   shouldShowItem(value: any){
     return !(value.key === "image" || value.key === "templateId");
 
+  }
+
+  toggleRotation(){
+    this.isRotated = !this.isRotated
   }
 
 //  FORM

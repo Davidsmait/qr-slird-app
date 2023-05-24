@@ -59,12 +59,9 @@ ion-icon {
   }
 }
 
-.card:hover .card-inner,
-.card.active .card-inner {
-  transform: rotateY(180deg);
-}
 
-.card-inner:hover{
+
+.rotate{
   transform: rotateY(180deg);
 }
 
@@ -125,4 +122,8 @@ ion-icon {
 .user-item-card {
   font-size: .80em;
 
+}
+
+.fab-color{
+  color: red;
 }

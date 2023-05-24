@@ -20,9 +20,6 @@ export class UserCardsService {
     this.userCardsSubject.next(this.userCards)
   }
 
-  getCards(){
-    return this.userCards.slice()
-  }
 
 
 
