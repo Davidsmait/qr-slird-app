@@ -32,7 +32,6 @@ export class CardTemplatesService {
 
   changeSelectedCard(id: number){
     const currentSrc = this.findSrcViaId(id)
-    console.log(currentSrc)
     this.selectedCardSrc.next(currentSrc)
   }
 

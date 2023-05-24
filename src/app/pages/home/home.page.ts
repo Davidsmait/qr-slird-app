@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserCardsService} from "../../services/user-cards.service";
 import {CardTemplatesService} from "../../services/card-templates.service";
@@ -8,9 +8,9 @@ import {NewCardForm} from "../../interfaces/new-card-form";
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage implements OnInit{
-  hasCardOwned = false
   ownedCards: NewCardForm[] = []
 
   selectedCardSrc = ''
@@ -25,20 +25,13 @@ export class HomePage implements OnInit{
   }
 
   ngOnInit() {
-    // this.cardTemplates.selectedCardSrc$.subscribe(srcData => {
-    //   this.selectedCardSrc = srcData
-    // })
 
     this.userCards.userCardsSubject$.subscribe(cardsData => {
-      console.log(cardsData)
+      console.log('userCardsSubject$: ',cardsData)
       this.ownedCards = cardsData
     })
   }
 
-  ownCardStateChange(){
-    console.log(this.userCards.getCards())
-    this.hasCardOwned = !this.hasCardOwned
-  }
 
   onClickNew(){
     this.router.navigate(['/tabs/home/new-card/'])
@@ -46,5 +39,9 @@ export class HomePage implements OnInit{
 
   findImageSrc(card: NewCardForm){
     return this.cardTemplates.findSrcViaId(Number(card.templateId))
+  }
+
+  onClickCard(card: NewCardForm){
+    // console.log(card)
   }
 }
